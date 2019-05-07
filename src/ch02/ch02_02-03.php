@@ -1,6 +1,12 @@
 <?php
-  //DB接続
-  $dbh = new PDO("mysql:host=mzn_db; dbname=mzn; charset=utf8", 'user', 'pass');
+  try{
+    //DB接続
+    $dbh = new PDO("mysql:host=mzn_db; dbname=mzn; charset=utf8", 'user', 'pass');
+  
+  }catch(PDOException $e) {
+    echo "DB接続エラー";
+  
+  }
 
   //SQL作成 [2]usersテーブルから20件表示
   $sql = "SELECT * FROM users LIMIT 20;";
@@ -21,8 +27,15 @@
   */
   function select($sql) {
     global $dbh;
-    //クエリ実行
-    $res = $dbh->query($sql);
+
+    try{
+      //クエリ実行
+      $res = $dbh->query($sql);
+
+    }catch(PDOException $e){
+      echo "SQL実行エラー";
+    }
+
     //接続終了
     $dbh = null;
 
