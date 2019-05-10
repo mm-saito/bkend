@@ -89,7 +89,7 @@
         foreach ($large_area as $l_area_name => $l_area_info)
         // 大エリア対象のエリアIDがあったらadd呼び出し
         if(in_array($pref["id"], $l_area_info, TRUE)) {
-          $area_model->add($l_area_name, $pref["name"]);
+          $area_model->add($l_area_name, $pref["name"], $pref['id']);
         }
       }
     }
@@ -106,8 +106,8 @@
     $city_model = new City(DB_USER,DB_PASS);
 
     $city_model->del();
-    $pref_model->del();
     $area_model->del();
+    $pref_model->del();
 
   }
 

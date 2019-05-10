@@ -53,7 +53,7 @@ class City
         global $db;
 
         //SQL作成
-        $sql = "DELETE FROM city";
+        $sql = "TRUNCATE TABLE city";
         
         try {
             //削除

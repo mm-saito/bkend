@@ -19,23 +19,24 @@ class LargeArea
     }
 
     //新規地方作成
-    public function add($area_name, $pref_name)
+    public function add($area_name, $pref_name, $pref_id)
     {
         global $db;
         //SQL作成
-        $sql = "INSERT INTO large_area (name, prefecture_id) VALUES (:name, :prefecture_id)";
+        $sql = "INSERT INTO large_area (name, prefecture_name, prefecture_id) VALUES (:name, :prefecture_name ,:prefecture_id)";
         
         //値を空で作成
         $stmt = $this->db->prepare($sql);
 
         //ステークホルダに値を設定
-        $params = array(':name' => $area_name, ':prefecture_id' => $pref_name);
+        $params = array(':name' => $area_name, ':prefecture_name' => $pref_name ,':prefecture_id' => $pref_id);
         
         try {
             //挿入する値をセットした配列をSQLを実行
             $stmt->execute($params);
             echo 'name = '. $area_name ."\n";
-            echo 'prefecture_id = '. $pref_name ."\n";
+            echo 'prefecture_name = '. $pref_name ."\n";
+            echo 'prefecture_id = '. $pref_id ."\n";
             echo 'を登録しました<br>';
 
         }catch(PDOException $e){
@@ -51,7 +52,7 @@ class LargeArea
         global $db;
 
         //SQL作成
-        $sql = "DELETE FROM large_area";
+        $sql = "TRUNCATE TABLE large_area";
         
         try {
             //削除
