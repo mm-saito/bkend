@@ -67,6 +67,7 @@
                 break;
         }
         ?>
-        <?= $this->Html->link('管理',$path, ['class' => 'button']); ?>
+        <?= $this->Html->link('管理', $path, ['class' => 'button']); ?>
+        <?= $this->Html->link('ＣＳＶ', ['action' => 'exportStcok'], ['class' => 'button']) ?>
     </div>
 </div>

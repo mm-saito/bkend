@@ -68,9 +68,6 @@ class AppController extends Controller
             ],
         ]);
 
-         //ログインされていなくても表示できるページ
-        //  $this->Auth->allow(['login','add']);
-
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -84,7 +81,7 @@ class AppController extends Controller
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow(['add', 'logout']);
+        $this->Auth->allow(['add', 'logout', 'login']);
     }
 
     /**

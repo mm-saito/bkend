@@ -167,13 +167,6 @@ class OrderController extends AppController
             $stock = $this->Order->get($id, [
                 'contain' => ['Stock']
             ]);
-            
-            // echo"<pre>";
-            // var_dump($stockquantity);
-            // echo"</pre>";
-            // echo"<pre>";
-            // var_dump($order);
-            // echo"</pre>";
     
             //更新差分データを作成               
             $order_data['status'] = 4;  //「3.発注済み」→「4.発注受け取り済み」    
@@ -241,7 +234,7 @@ class OrderController extends AppController
      */
     public function isAuthorized($user)
     {
-        
+        //叩かれたURLのアクション
         $action = $this->request->params['action'];
         
         //権限でアクセス制御

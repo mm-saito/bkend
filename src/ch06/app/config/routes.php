@@ -64,7 +64,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     // $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     // $routes->connect('/', ['controller' => 'LargeArea', 'action' => 'index', 'index']);
-    $routes->connect('/', ['controller' => 'Users', 'action' => 'index', 'index']);
+    $routes->connect('/', ['controller' => 'Users', 'action' => 'login', 'login']);
 
     
     /**
