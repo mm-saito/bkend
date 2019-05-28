@@ -74,6 +74,11 @@ class StockController extends AppController
 
     }
 
+    public function isAuthorized($user)
+    {
+        return true;
+    }
+
 //     /**
 //      * View method
 //      *
