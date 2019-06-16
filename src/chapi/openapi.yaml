@@ -1,0 +1,151 @@
+openapi: '3.0.2'
+
+info:
+  title: 'saitoAPI'
+  version: '0.0.1'
+
+servers:
+  - url: 'http://localhost:8080/'
+    description: 'ローカル開発用 API'
+
+tags:
+  - name: items
+    description: '商品'
+
+paths:
+  '/items':
+    get:
+      tags:
+        - items
+      summary: '商品一覧'
+      responses:
+        '200':
+          description: '正常'
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/item'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+          
+  '/items/{id}':
+    get:
+      tags:
+        - items
+      summary: '商品表示'
+      parameters:
+      - name: 'id'
+        in: 'path'
+        description: '取得したい商品ID'
+        required: true
+        schema:
+          type: 'object'
+      responses:
+        '200':
+          description: '正常'
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/item'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
+
+components:
+  schemas:
+    # 商品
+    item:
+      description: '商品'
+      allOf:
+        - $ref: '#/components/schemas/itemModel'
+    
+    # 商品内容   
+    itemModel:
+      description: '商品モデル'
+      type: object
+      required:
+        - id 　　　　　#商品ID
+      properties:
+        id: 
+          $ref: '#/components/schemas/id'
+        name:
+          $ref: '#/components/schemas/name'
+        catchcopy:
+          $ref: '#/components/schemas/catchcopy'
+        price:
+          $ref: '#/components/schemas/price'
+        caption:
+          $ref: '#/components/schemas/caption'
+        url:
+          $ref: '#/components/schemas/url'
+        imageUrl:
+          $ref: '#/components/schemas/imageUrl'
+    
+    #商品内容の項目
+    id:
+      title: '商品ID'
+      type: integer
+      example: '1'
+      
+    name:
+      title: '商品名'
+      type: string
+      example: '新潟県産コシヒカリ 10kg'
+    
+    catchcopy:
+      title: 'キャッチコピー'
+      type: string
+      example: '無洗米新潟こしひかりランキング1位の実績！'
+    
+    price:
+      title: '金額'
+      type: integer
+      example: '5280'
+      
+    caption:
+      title: '説明'
+      type: string
+      example: '内容量10kg 一か月を目安にお召し上がりください'
+      
+    url:
+      title: '商品URL'
+      type: string
+      example: 'https://item.rakuten.co.jp/abcdefg/hijkl/'
+      
+    imageUrl:
+      title: '画像URL'
+      type: string
+      example: 'https://item.rakuten.co.jp/abcdefg/hijkl/xxxx.jpg'
+    
+    #エラー
+    Error:
+      description: 'エラー'
+      type: object
+      required:
+        - message
+        - code
+      properties:
+        message:
+          title: 'エラーメッセージ'
+          type: string
+          example: '予期しないエラーです'
+        
+        code:
+          title: 'ステータスコード'
+          type: integer
+          minimum: 100
+          maximum: 600
+          example: 400
+
+  responses:
+    Success:
+      description: '正常終了'
+    UnexpectedError:
+      description: '異常終了'
+      content:
+        'application/json':
+          schema:
+            $ref: '#/components/schemas/Error'
