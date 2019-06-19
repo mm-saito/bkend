@@ -30,18 +30,18 @@ paths:
         default:
           $ref: '#/components/responses/UnexpectedError'
           
-  '/items/{id}':
+  '/items/{name}':
     get:
       tags:
         - items
-      summary: '商品表示'
+      summary: '商品名検索'
       parameters:
-      - name: 'id'
+      - name: 'name'
         in: 'path'
-        description: '取得したい商品ID'
+        description: '取得したい商品名'
         required: true
         schema:
-          type: 'object'
+          type: 'string'
       responses:
         '200':
           description: '正常'
@@ -54,6 +54,35 @@ paths:
         default:
           $ref: '#/components/responses/UnexpectedError'
 
+  '/items/{min}{max}':
+    get:
+      tags:
+        - items
+      summary: '商品価格検索'
+      parameters:
+      - name: 'min'
+        in: 'path'
+        description: '取得価格（下限）'
+        required: true
+        schema:
+          type: 'integer'
+      - name: 'max'
+        in: 'path'
+        description: '取得価格（上限）'
+        required: true
+        schema:
+          type: 'integer'
+      responses:
+        '200':
+          description: '正常'
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/item'
+        default:
+          $ref: '#/components/responses/UnexpectedError'
 components:
   schemas:
     # 商品
