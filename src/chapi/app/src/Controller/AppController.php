@@ -53,5 +53,7 @@ class AppController extends Controller
         //$this->loadComponent('Security');
     }
 
-    
+    public function appError($error) {
+        $this->redirect(['controller' => 'test', 'action' => 'index']);
+    }
 }

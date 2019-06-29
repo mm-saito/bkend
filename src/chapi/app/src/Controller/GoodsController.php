@@ -133,12 +133,18 @@ class GoodsController extends AppController
      * /items/{id} 商品詳細　
     */
     public function goodsDetailApi() {
-
+        
         // JSONで戻します。
         $this->response->type('json');
     
         //商品IDをURLから取得
         $id = $this->request->param('goods_id');
+
+        //パラメータ{id}がテーブルの範囲内か判定
+        if (!$this->setAction('checkGoodsId', $id)) {
+            echo("Goodsテーブルにid=". $id. "は存在しません。");
+            exit;
+        }
             
         //DBからIDで取得
         $goods = $this->Goods->find()->
@@ -148,6 +154,21 @@ class GoodsController extends AppController
         $this->response->body(json_encode($goods,
                                             JSON_PRETTY_PRINT | 
                                             JSON_UNESCAPED_UNICODE));
+    }
+
+    public function checkGoodsId($id) {
+
+        //テーブルのIDの最大値、最小値取得
+        $query = $this->Goods->find();
+        $ret = $query->select(['max_id' => $query->func()->max('id'),
+                               'min_id' => $query->func()->min('id')])->first();
+        $max = $ret->max_id;
+        $min = $ret->min_id;
+
+        if ($id > $max || $id < $min) {
+            return false;
+        }
+            return true;
     }
 
     /*
