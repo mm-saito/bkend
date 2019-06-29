@@ -54,7 +54,7 @@ paths:
         default:
           $ref: '#/components/responses/UnexpectedError'
           
-  '/items/seach':
+  '/items/search':
     get:
       tags:
         - items
